@@ -417,7 +417,6 @@ void read_param_file( parameters *params)
 ******************************************************************************************/
 void write_output_files(model *model, parameters *params)
 {
-
 	if(params->sys_write_individual == TRUE)
 	{
 		write_individual_file( model, params );
@@ -778,20 +777,71 @@ void write_interactions( model *model )
 
 	output_file = fopen(output_file_name, "w");
 
-	day = model->interaction_day_idx;
-	ring_dec( day, model->params->days_of_interactions );
+	// ALE
+	//day = model->interaction_day_idx;
+	//ring_dec( day, model->params->days_of_interactions );
 
 	fprintf(output_file ,"ID_1,age_group_1,house_no_1,occupation_network_1,type,ID_2,age_group_2,house_no_2,occupation_network_2\n");
 	for( pdx = 0; pdx < model->params->n_total; pdx++ )
 	{
-
-		indiv = &(model->population[pdx]);
-
-		if( indiv->n_interactions[day] > 0 )
-		{
-			inter = indiv->interactions[day];
-			for( idx = 0; idx < indiv->n_interactions[day]; idx++ )
+			if( indiv->n_interactions[day] > 0 )
 			{
+				inter = indiv->interactions[day];
+				for( idx = 0; idx < indiv->n_interactions[day]; idx++ )
+				{
+
+					fprintf(output_file ,"%i,%li,%i,%li,%i,%i,%li,%i,%li,%i\n",
+							day,
+							indiv->idx,
+							indiv->age_group,
+							indiv->house_no,
+							indiv->work_network,
+							inter->type,
+							inter->individual->idx,
+							inter->individual->age_group,
+							inter->individual->house_no,
+							inter->individual->work_network
+					       );
+					inter = inter->next;
+				}
+			}
+		}
+	}
+	fclose(output_file);
+}
+
+// ALE
+/*****************************************************************************************
+*  Name:		write_interactions from model->interactions (check)
+*  Description: write interactions details
+******************************************************************************************/
+void write_interactions_check( model *model )
+{
+	char output_file_name[INPUT_CHAR_LEN];
+	FILE *output_file;
+	long pdx;
+	int day, idx;
+	individual *indiv;
+	interaction *inter;
+
+	char param_line_number[10];
+	sprintf(param_line_number, "%d", model->params->param_line_number);
+
+	// Concatenate file name
+	strcpy(output_file_name, model->params->output_file_dir);
+	strcat(output_file_name, "/interactions_Run");
+	strcat(output_file_name, param_line_number);
+	strcat(output_file_name, ".csv");
+
+	output_file = fopen(output_file_name, "w");
+
+	fprintf(output_file ,"time,ID,age_group,house_no,work_network,type,ID_2,age_group_2,house_no_2,work_2\n");
+	printf("total_time: %d\n", model->params->end_time);
+	for (day = 0; day < model->params->end_time; day++) {
+		printf("day: %d\n",day);
+		for( pdx = 0; pdx < model->params->n_total; pdx++ )
+		{
+			indiv = &(model->population[pdx]);
 
 				fprintf(output_file ,"%li,%i,%li,%i,%i,%li,%i,%li,%i\n",
 					indiv->idx,

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <string.h>
 
 #include "model.h"
 #include "network.h"
@@ -27,6 +28,7 @@ int main(int argc, char *argv[])
     clock_gettime( CLOCK_REALTIME,&tv);
     tstart = ( tv.tv_sec ) + ( tv.tv_nsec ) / 1e9;
 
+	
 	time_t time_now = time( NULL );
 	strftime(date_time, sizeof(date_time), "# Date: %d-%m-%Y %I:%M:%S", localtime(&time_now)); 
 	puts(date_time);
@@ -47,7 +49,19 @@ int main(int argc, char *argv[])
 	printf("# param_id: %li\n", params.param_id);
 	printf("# rng_seed: %li\n", params.rng_seed);
 	printf("# param_line_number: %d\n", params.param_line_number);
-	
+
+
+	// ALE: DEBUG
+	FILE *f;
+	char all_interactions_file_name[INPUT_CHAR_LEN];
+	strcpy(all_interactions_file_name, model->params->output_file_dir);
+	strcat(all_interactions_file_name, "/all_interactions.csv");
+	f = fopen(all_interactions_file_name, "w");
+	printf("%s\n", all_interactions_file_name);
+	fprintf(f ,"time,ID,age_group,house_no,work_network,type,ID_2,age_group_2,house_no_2,work_2\n");
+	fclose(f);
+
+
 	printf( "time,lockdown,lockdown_elderly,intervention_on,test_on_symptoms,app_on,total_infected,total_case,n_presymptom,n_asymptom,n_quarantine,n_tests,n_symptoms,n_hospital,n_critical,n_hospitalised_recovering,n_death,n_recovered\n");
 	last_test = 0;
 	while( model->time < params.end_time && one_time_step( model ) )
