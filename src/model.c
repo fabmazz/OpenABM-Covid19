@@ -20,7 +20,7 @@
 #include <string.h>
 
 // ALE: DEBUG
-FILE *all_interactions_file;
+//FILE *all_interactions_file;
 
 
 /*****************************************************************************************
@@ -592,7 +592,7 @@ void add_interactions_from_network(
 		indiv2->n_interactions[ day ]++;
 
 		// ALE: DEBUG
-		fprintf(all_interactions_file,"%i,%li,%i,%li,%i,%i,%li,%i,%li,%i\n",
+		/*fprintf(all_interactions_file,"%i,%li,%i,%li,%i,%i,%li,%i,%li,%i\n",
 				day,
 				indiv1->idx,
 				indiv1->age_group,
@@ -603,7 +603,7 @@ void add_interactions_from_network(
 				inter1->individual->age_group,
 				inter1->individual->house_no,
 				inter1->individual->work_network
-		       );
+		       );*/
 
 		model->n_total_intereactions++;
 
@@ -680,15 +680,16 @@ int one_time_step( model *model )
 		update_event_list_counters( model, idx );
 
 	// ALE: DEBUG
-	char all_interactions_file_name[INPUT_CHAR_LEN];
+	/*char all_interactions_file_name[INPUT_CHAR_LEN];
 	strcpy(all_interactions_file_name, model->params->output_file_dir);
 	strcat(all_interactions_file_name, "/all_interactions.csv");
-	all_interactions_file = fopen(all_interactions_file_name, "a");
+	all_interactions_file = fopen(all_interactions_file_name, "a");*/
 	//printf("%d\n", model->interaction_day_idx);
 	//printf("%d\n", model->params->days_of_interactions);
 
 	build_daily_newtork( model );
-	fclose(all_interactions_file);
+	
+	//fclose(all_interactions_file);
 
 	transmit_virus( model );
 
