@@ -52,14 +52,15 @@ int main(int argc, char *argv[])
 
 
 	// ALE: DEBUG
-	/*FILE *f;
+	FILE *f;
 	char all_interactions_file_name[INPUT_CHAR_LEN];
 	strcpy(all_interactions_file_name, model->params->output_file_dir);
 	strcat(all_interactions_file_name, "/all_interactions.csv");
 	f = fopen(all_interactions_file_name, "w");
 	printf("%s\n", all_interactions_file_name);
-	fprintf(f ,"time,ID,age_group,house_no,work_network,type,ID_2,age_group_2,house_no_2,work_2\n");
-	fclose(f);*/
+	fprintf(f ,"time,ID,age_group,house_no,work_network,type,ID_2,age_group_2,house_no_2,work_2,lambda\n");
+	fclose(f);
+	// END ALE: DEBUG
 
 
 	printf( "time,lockdown,lockdown_elderly,intervention_on,test_on_symptoms,app_on,total_infected,total_case,n_presymptom,n_asymptom,n_quarantine,n_tests,n_symptoms,n_hospital,n_critical,n_hospitalised_recovering,n_death,n_recovered\n");
