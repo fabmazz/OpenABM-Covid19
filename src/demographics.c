@@ -21,8 +21,8 @@
 #define POPULATION_PREF 2
 
 // ALE
-//#define MAX_ALLOWABLE_ERROR 1e-5
-#define MAX_ALLOWABLE_ERROR 1e-4
+#define MAX_ALLOWABLE_ERROR 1e-5
+//#define MAX_ALLOWABLE_ERROR 1e-4
 
 /*****************************************************************************************
 *  Name:		set_up_allocate_work_places

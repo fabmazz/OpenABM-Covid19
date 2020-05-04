@@ -1,7 +1,7 @@
 parameter_name	parameter_value
 rng_seed	1
 param_id	1
-n_total	1000000
+n_total	1000
 mean_work_interactions_child	10
 mean_work_interactions_adult	7
 mean_work_interactions_elderly	3
@@ -16,7 +16,7 @@ sd_random_interactions_elderly	3
 random_interaction_distribution	1
 child_network_adults	0.2
 elderly_network_adults	0.2
-days_of_interactions	10
+days_of_interactions	200
 end_time	200
 n_seed_infection	5
 mean_infectious_period	6
