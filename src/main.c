@@ -57,8 +57,8 @@ int main(int argc, char *argv[])
 	strcpy(all_interactions_file_name, model->params->output_file_dir);
 	strcat(all_interactions_file_name, "/all_interactions.csv");
 	f = fopen(all_interactions_file_name, "w");
-	printf("%s\n", all_interactions_file_name);
-	fprintf(f ,"time,ID,age_group,house_no,work_network,type,ID_2,age_group_2,house_no_2,work_2,lambda\n");
+	printf("printing all interactions in: %s\n", all_interactions_file_name);
+	fprintf(f ,"time,ID,age_group,house_no,work_network,type,ID_2,age_group_2,house_no_2,work_2,infectious_curve,adjusted_susc,lambda\n");
 	fclose(f);
 	// END ALE: DEBUG
 

@@ -620,17 +620,17 @@ void add_interactions_from_network(
 		indiv2->n_interactions[ day ]++;
 
 		// ALE: DEBUG
-		double lambda;
-		lambda = 0;
+		double inf, adj, lambda;
 		if (indiv1->status != UNINFECTED) {
 			int t_infect = model->time - time_infected( indiv1 );
 			if( t_infect < MAX_INFECTIOUS_PERIOD ) {
 				event_list *list = &(model->event_lists[indiv1->status]);
-				lambda = model->params->adjusted_susceptibility[indiv2->age_group] *
-					list->infectious_curve[inter1->type][t_infect - 1];
+				inf = list->infectious_curve[inter1->type][t_infect - 1];
+				adj = model->params->adjusted_susceptibility[indiv2->age_group];
+				lambda = inf * adj;
 			}
 		}
-		fprintf(all_interactions_file,"%i,%li,%i,%li,%i,%i,%li,%i,%li,%i,%g\n",
+		fprintf(all_interactions_file,"%i,%li,%i,%li,%i,%i,%li,%i,%li,%i,%g,%g,%g\n",
 				day,
 				indiv1->idx,
 				indiv1->age_group,
@@ -641,19 +641,21 @@ void add_interactions_from_network(
 				inter1->individual->age_group,
 				inter1->individual->house_no,
 				inter1->individual->work_network,
+				inf,
+				adj,
 				lambda
 		       );
 
-		lambda = 0;
 		if (indiv2->status != UNINFECTED) {
 			int t_infect = model->time - time_infected( indiv2 );
 			if( t_infect < MAX_INFECTIOUS_PERIOD ) {
 				event_list *list = &(model->event_lists[indiv2->status]);
-				lambda = model->params->adjusted_susceptibility[indiv1->age_group] *
-					list->infectious_curve[inter2->type][t_infect - 1];
+				inf = list->infectious_curve[inter2->type][t_infect - 1];
+				adj = model->params->adjusted_susceptibility[indiv1->age_group];
+				lambda = inf * adj;
 			}
 		}
-		fprintf(all_interactions_file,"%i,%li,%i,%li,%i,%i,%li,%i,%li,%i,%g\n",
+		fprintf(all_interactions_file,"%i,%li,%i,%li,%i,%i,%li,%i,%li,%i,%g,%g,%g\n",
 				day,
 				indiv2->idx,
 				indiv2->age_group,
@@ -664,6 +666,8 @@ void add_interactions_from_network(
 				inter2->individual->age_group,
 				inter2->individual->house_no,
 				inter2->individual->work_network,
+				inf,
+				adj,
 				lambda
 		       );
 		// END ALE: DEBUG
