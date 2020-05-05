@@ -1,5 +1,6 @@
-OpenABM-Covid19: Agent-based model for modelling the Covid-19 epidemic
-========================================================================
+OpenABM-Covid19: Agent-based model for modelling the Covid-19 + Intervention API
+
+This fork containts a minimal [Intervention API](#intervention-api) that allows interaction with the original C++ code via the python interface. Risk assessment and tracing techniques can be easily integrated with the agent-based model in order to test containment strategies for epidemic spreading.
 
 Description
 -----------
@@ -140,4 +141,44 @@ set PATH=C:\Rtools\bin;%PATH%
 @REM git & swig at the end
 set PATH=%PATH%;C:\Program Files\Git\cmd
 set PATH=%PATH%;C:\cygwin64\bin
+
+## Intervention API
+
+The following procedures are available:
+
+* `get_contacts_daily(model * model, int day)`: returns the full list of contacts for a given day
+* `intervention_quarantine_list(model *model, PyObject * to_quarantine, int time_to)`: quarantines a list of individuals for `time_to` days
+* `get_age(model *model)`: returns the list of ages for all individuals in the network
+* `get_app_users(model *model)`: returns a list of boolean values indicating app adoption for all individuals
+* `PyObject * get_house(model *model)`: returns the househould ID for all individuals
+* `PyObject * get_state(model *model)`: returns the current state of all individuals
+
+### Usage
+
+Once a `model` object is instantiated, a typical run in the presence of external intervention would consists of the following steps:
+
+```python
+    
+    import covid19
+    
+    # retrieve demographics
+    house = covid19.get_house(model.model.c_model)
+    ages = covid19.get_house(model.model.c_model)
+    
+    # store list of individuals using the tracing app
+    has_app = covid19.get_app_users(model.model.c_model)
+
+    for t in range(end_time):
+        # update model state
+        sim.steps(1)
+        # get status of nodes in the networks
+        status = np.array(covid19.get_state(model.model.c_model))
+        # get daily contacts
+        daily_contacts = covid19.get_contacts_daily(model.model.c_model, t)
+        
+        # use your favourite method to perform risk assessment
+        to_quarantine = ...
+        
+        # quarantine a list of individuals for days_of_quarantine days
+        covid19.intervention_quarantine_list(model.model.c_model, to_quarantine, days_of_quarantine)
 ```

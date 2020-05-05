@@ -614,10 +614,11 @@ void remove_event_from_event_list(
 ******************************************************************************************/
 void update_event_list_counters( model *model, int type )
 {
+	int age;
 	model->event_lists[type].n_current += model->event_lists[type].n_daily_current[ model->time ];
 	model->event_lists[type].n_total   += model->event_lists[type].n_daily[ model->time ];
 
-	for( int age = 0; age < N_AGE_GROUPS; age++ )
+	for (age = 0; age < N_AGE_GROUPS; age++)
 		model->event_lists[type].n_total_by_age[age] += model->event_lists[type].n_daily_by_age[ model->time ][ age ];
 }
 
