@@ -51,9 +51,9 @@ PyObject * get_contacts(model * model)
                                 inter = indiv->interactions[day];
                                 for( idx = 0; idx < indiv->n_interactions[day]; idx++) {
                                         it = PyList_New(4);
-                                        PyList_SetItem(it, 0, PyInt_FromLong(day));
-                                        PyList_SetItem(it, 1, PyInt_FromLong(indiv->idx));
-                                        PyList_SetItem(it, 2, PyInt_FromLong(inter->individual->idx));
+                                        PyList_SetItem(it, 0, PyInt_FromLong(indiv->idx));
+                                        PyList_SetItem(it, 1, PyInt_FromLong(inter->individual->idx));
+                                        PyList_SetItem(it, 2, PyInt_FromLong(day));
                                         PyList_SetItem(it, 3, PyInt_FromLong(inter->type));
                                         PyList_Append(out, it);
                                         inter = inter->next;
