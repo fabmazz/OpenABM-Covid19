@@ -776,6 +776,8 @@ int one_time_step( model *model )
 	strcat(lambda_random_file_name, "/lambda_random.txt");
 	lambda_random_file = fopen(lambda_random_file_name, "a");
 	print_lambda(model, RANDOM, lambda_random_file);
+
+        intervention_quarantine_until(model, model->population, 0, TRUE, NULL, 0);
 	// END ALE: DEBUG
 
 
