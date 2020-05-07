@@ -22,6 +22,7 @@
 // ALE: DEBUG
 FILE *all_interactions_file;
 FILE *lambda_house_file, *lambda_work_file, *lambda_random_file;
+int PRINT_ALL_INTERACTIONS = -1;
 // END ALE: DEBUG
 
 /*****************************************************************************************
@@ -620,56 +621,58 @@ void add_interactions_from_network(
 		indiv2->n_interactions[ day ]++;
 
 		// ALE: DEBUG
-		double inf, adj, lambda;
-		if (indiv1->status != UNINFECTED) {
-			int t_infect = model->time - time_infected( indiv1 );
-			if( t_infect < MAX_INFECTIOUS_PERIOD ) {
-				event_list *list = &(model->event_lists[indiv1->status]);
-				inf = list->infectious_curve[inter1->type][t_infect - 1];
-				adj = model->params->adjusted_susceptibility[indiv2->age_group];
-				lambda = inf * adj;
+		if (PRINT_ALL_INTERACTIONS == 1) {
+			double inf, adj, lambda;
+			if (indiv1->status != UNINFECTED) {
+				int t_infect = model->time - time_infected( indiv1 );
+				if( t_infect < MAX_INFECTIOUS_PERIOD ) {
+					event_list *list = &(model->event_lists[indiv1->status]);
+					inf = list->infectious_curve[inter1->type][t_infect - 1];
+					adj = model->params->adjusted_susceptibility[indiv2->age_group];
+					lambda = inf * adj;
+				}
 			}
-		}
-		fprintf(all_interactions_file,"%i,%li,%i,%li,%i,%i,%li,%i,%li,%i,%g,%g,%g\n",
-				day,
-				indiv1->idx,
-				indiv1->age_group,
-				indiv1->house_no,
-				indiv1->work_network,
-				inter1->type,
-				inter1->individual->idx,
-				inter1->individual->age_group,
-				inter1->individual->house_no,
-				inter1->individual->work_network,
-				inf,
-				adj,
-				lambda
-		       );
+			fprintf(all_interactions_file,"%i,%li,%i,%li,%i,%i,%li,%i,%li,%i,%g,%g,%g\n",
+					day,
+					indiv1->idx,
+					indiv1->age_group,
+					indiv1->house_no,
+					indiv1->work_network,
+					inter1->type,
+					inter1->individual->idx,
+					inter1->individual->age_group,
+					inter1->individual->house_no,
+					inter1->individual->work_network,
+					inf,
+					adj,
+					lambda
+			       );
 
-		if (indiv2->status != UNINFECTED) {
-			int t_infect = model->time - time_infected( indiv2 );
-			if( t_infect < MAX_INFECTIOUS_PERIOD ) {
-				event_list *list = &(model->event_lists[indiv2->status]);
-				inf = list->infectious_curve[inter2->type][t_infect - 1];
-				adj = model->params->adjusted_susceptibility[indiv1->age_group];
-				lambda = inf * adj;
+			if (indiv2->status != UNINFECTED) {
+				int t_infect = model->time - time_infected( indiv2 );
+				if( t_infect < MAX_INFECTIOUS_PERIOD ) {
+					event_list *list = &(model->event_lists[indiv2->status]);
+					inf = list->infectious_curve[inter2->type][t_infect - 1];
+					adj = model->params->adjusted_susceptibility[indiv1->age_group];
+					lambda = inf * adj;
+				}
 			}
+			fprintf(all_interactions_file,"%i,%li,%i,%li,%i,%i,%li,%i,%li,%i,%g,%g,%g\n",
+					day,
+					indiv2->idx,
+					indiv2->age_group,
+					indiv2->house_no,
+					indiv1->work_network,
+					inter2->type,
+					inter2->individual->idx,
+					inter2->individual->age_group,
+					inter2->individual->house_no,
+					inter2->individual->work_network,
+					inf,
+					adj,
+					lambda
+			       );
 		}
-		fprintf(all_interactions_file,"%i,%li,%i,%li,%i,%i,%li,%i,%li,%i,%g,%g,%g\n",
-				day,
-				indiv2->idx,
-				indiv2->age_group,
-				indiv2->house_no,
-				indiv1->work_network,
-				inter2->type,
-				inter2->individual->idx,
-				inter2->individual->age_group,
-				inter2->individual->house_no,
-				inter2->individual->work_network,
-				inf,
-				adj,
-				lambda
-		       );
 		// END ALE: DEBUG
 
 		model->n_total_intereactions++;
@@ -751,7 +754,7 @@ int one_time_step( model *model )
 	strcpy(all_interactions_file_name, model->params->output_file_dir);
 	strcat(all_interactions_file_name, "/all_interactions.csv");
 	all_interactions_file = fopen(all_interactions_file_name, "a");
-	//printf("%d\n", model->day);
+	//printf("%d\n", model->time);
 	//printf("%d\n", model->interaction_day_idx);
 	//printf("%d\n", model->params->days_of_interactions);
 
@@ -763,23 +766,24 @@ int one_time_step( model *model )
 	strcpy(lambda_house_file_name, model->params->output_file_dir);
 	strcat(lambda_house_file_name, "/lambda_house.txt");
 	lambda_house_file = fopen(lambda_house_file_name, "a");
-	print_lambda(model, HOUSEHOLD, lambda_house_file);
+	//print_lambda(model, HOUSEHOLD, lambda_house_file);
 
 	char lambda_work_file_name[INPUT_CHAR_LEN];
 	strcpy(lambda_work_file_name, model->params->output_file_dir);
 	strcat(lambda_work_file_name, "/lambda_work.txt");
 	lambda_work_file = fopen(lambda_work_file_name, "a");
-	print_lambda(model, WORK, lambda_work_file);
+	//print_lambda(model, WORK, lambda_work_file);
 
 	char lambda_random_file_name[INPUT_CHAR_LEN];
 	strcpy(lambda_random_file_name, model->params->output_file_dir);
 	strcat(lambda_random_file_name, "/lambda_random.txt");
 	lambda_random_file = fopen(lambda_random_file_name, "a");
-	print_lambda(model, RANDOM, lambda_random_file);
+	//print_lambda(model, RANDOM, lambda_random_file);
 
-        intervention_quarantine_until(model, model->population, 0, TRUE, NULL, 0);
+	/*if (model->time == 10)
+	        intervention_quarantine_until(model, model->population, 100, TRUE, NULL, 0);*/
+
 	// END ALE: DEBUG
-
 
 	transmit_virus( model );
 
