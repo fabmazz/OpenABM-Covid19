@@ -65,6 +65,35 @@ PyObject * get_contacts(model * model)
         return out;
 }
 
+PyObject * get_contacts_daily(model * model, int day)
+{
+        int pdx, idx; // k, ktot;
+        struct individual *indiv;
+	struct interaction *inter;
+        PyObject *it, *out;
+        out = PyList_New(0);
+        if (day > model->params->end_time || day < 0) {
+                PySys_WriteStdout("ERROR: %i out of range!", day);
+                return out;
+        }
+        for (pdx = 0; pdx < model->params->n_total; pdx++) {
+                indiv = &(model->population[pdx]);
+                if (indiv->n_interactions[day] > 0) {
+                        inter = indiv->interactions[day];
+                        for( idx = 0; idx < indiv->n_interactions[day]; idx++) {
+                                it = PyList_New(4);
+                                PyList_SetItem(it, 0, PyInt_FromLong(indiv->idx));
+                                PyList_SetItem(it, 1, PyInt_FromLong(inter->individual->idx));
+                                PyList_SetItem(it, 2, PyInt_FromLong(day));
+                                PyList_SetItem(it, 3, PyInt_FromLong(inter->type));
+                                PyList_Append(out, it);
+                                inter = inter->next;
+                        }
+                }
+        }
+
+        return out;
+}
 
 %}
 
