@@ -11,7 +11,7 @@ else
 	PYTHON = python3
 endif
 
-PIP_FLAGS := --upgrade
+PIP_FLAGS := --upgrade --user
 
 OBJS = utilities.o constant.o demographics.o params.o model.o individual.o main.o input.o network.o disease.o interventions.o
 GSLFLAGS= -lgsl -lgslcblas -lm -O3
