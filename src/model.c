@@ -624,7 +624,7 @@ void add_interactions_from_network(
 		// ALE: DEBUG
 		if (PRINT_ALL_INTERACTIONS == 1) {
 			double inf, adj, lambda;
-			if (indiv1->status != UNINFECTED) {
+			if (indiv1->status != SUSCEPTIBLE) {
 				int t_infect = model->time - time_infected( indiv1 );
 				if( t_infect < MAX_INFECTIOUS_PERIOD ) {
 					event_list *list = &(model->event_lists[indiv1->status]);
@@ -638,18 +638,18 @@ void add_interactions_from_network(
 					indiv1->idx,
 					indiv1->age_group,
 					indiv1->house_no,
-					indiv1->work_network,
+					indiv1->occupation_network,
 					inter1->type,
 					inter1->individual->idx,
 					inter1->individual->age_group,
 					inter1->individual->house_no,
-					inter1->individual->work_network,
+					inter1->individual->occupation_network,
 					inf,
 					adj,
 					lambda
 			       );
 
-			if (indiv2->status != UNINFECTED) {
+			if (indiv2->status != SUSCEPTIBLE) {
 				int t_infect = model->time - time_infected( indiv2 );
 				if( t_infect < MAX_INFECTIOUS_PERIOD ) {
 					event_list *list = &(model->event_lists[indiv2->status]);
@@ -663,12 +663,12 @@ void add_interactions_from_network(
 					indiv2->idx,
 					indiv2->age_group,
 					indiv2->house_no,
-					indiv1->work_network,
+					indiv1->occupation_network,
 					inter2->type,
 					inter2->individual->idx,
 					inter2->individual->age_group,
 					inter2->individual->house_no,
-					inter2->individual->work_network,
+					inter2->individual->occupation_network,
 					inf,
 					adj,
 					lambda

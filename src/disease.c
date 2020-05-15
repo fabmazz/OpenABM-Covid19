@@ -98,12 +98,14 @@ double estimate_mean_interactions_by_age( model *model, int age )
 	for( ndx = 0; ndx < N_OCCUPATION_NETWORKS ; ndx++ )
 		for( pdx = 0; pdx < model->occupation_network[ndx]->n_edges; pdx++ )
 		{
-			if( model->population[model->occupation_network[ndx]->edges[pdx].id1].age_type == age )
+			if( model->population[model->occupation_network[ndx]->edges[pdx].id1].age_type == age ) {
 				inter += model->params->daily_fraction_work * weight[OCCUPATION];
 				inter_work += model->params->daily_fraction_work * weight[OCCUPATION];
-			if( model->population[model->occupation_network[ndx]->edges[pdx].id2].age_type == age )
+			}
+			if( model->population[model->occupation_network[ndx]->edges[pdx].id2].age_type == age ) {
 				inter  += model->params->daily_fraction_work * weight[OCCUPATION];
 				inter_work += model->params->daily_fraction_work * weight[OCCUPATION];
+			}
 		}
 
 	fprintf(estimates_file, "%d,%g,%g,%g,%g\n", age, inter_random/people, inter_house/people, inter_work/people, inter/people);
@@ -132,7 +134,6 @@ void set_up_infectious_curves( model *model )
 	parameters *params = model->params;
 	double infectious_rate, type_factor;
 	int type, group;
-
 	infectious_rate   = params->infectious_rate / model->mean_interactions[AGE_TYPE_ADULT];
 	// ALE: DEBUG
 	char estimates_file_name[INPUT_CHAR_LEN];
@@ -141,9 +142,9 @@ void set_up_infectious_curves( model *model )
 	estimates_file = fopen(estimates_file_name, "w");
 	fprintf(estimates_file, "age_type,random,house,work,all\n");
 
-	mean_interactions[AGE_TYPE_CHILD]   = estimate_mean_interactions_by_age( model, AGE_TYPE_CHILD );
-	mean_interactions[AGE_TYPE_ADULT]   = estimate_mean_interactions_by_age( model, AGE_TYPE_ADULT );
-	mean_interactions[AGE_TYPE_ELDERLY] = estimate_mean_interactions_by_age( model, AGE_TYPE_ELDERLY );
+	estimate_mean_interactions_by_age( model, AGE_TYPE_CHILD );
+	estimate_mean_interactions_by_age( model, AGE_TYPE_ADULT );
+	estimate_mean_interactions_by_age( model, AGE_TYPE_ELDERLY );
 
 	fclose(estimates_file);
 	// END ALE: DEBUG

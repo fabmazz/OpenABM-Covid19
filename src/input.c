@@ -777,33 +777,32 @@ void write_interactions( model *model )
 
 	output_file = fopen(output_file_name, "w");
 
-	// ALE
-	//day = model->interaction_day_idx;
+	day = model->interaction_day_idx;
 	//ring_dec( day, model->params->days_of_interactions );
 
 	fprintf(output_file ,"ID_1,age_group_1,house_no_1,occupation_network_1,type,ID_2,age_group_2,house_no_2,occupation_network_2\n");
 	for( pdx = 0; pdx < model->params->n_total; pdx++ )
 	{
-			if( indiv->n_interactions[day] > 0 )
+		indiv = &(model->population[pdx]);
+		if( indiv->n_interactions[day] > 0 )
+		{
+			inter = indiv->interactions[day];
+			for( idx = 0; idx < indiv->n_interactions[day]; idx++ )
 			{
-				inter = indiv->interactions[day];
-				for( idx = 0; idx < indiv->n_interactions[day]; idx++ )
-				{
 
-					fprintf(output_file ,"%i,%li,%i,%li,%i,%i,%li,%i,%li,%i\n",
-							day,
-							indiv->idx,
-							indiv->age_group,
-							indiv->house_no,
-							indiv->work_network,
-							inter->type,
-							inter->individual->idx,
-							inter->individual->age_group,
-							inter->individual->house_no,
-							inter->individual->work_network
-					       );
-					inter = inter->next;
-				}
+				fprintf(output_file ,"%i,%li,%i,%li,%i,%i,%li,%i,%li,%i\n",
+						day,
+						indiv->idx,
+						indiv->age_group,
+						indiv->house_no,
+						indiv->occupation_network,
+						inter->type,
+						inter->individual->idx,
+						inter->individual->age_group,
+						inter->individual->house_no,
+						inter->individual->occupation_network
+				       );
+				inter = inter->next;
 			}
 		}
 	}
