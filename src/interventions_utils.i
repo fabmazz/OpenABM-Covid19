@@ -50,6 +50,34 @@ PyObject * get_house(model *model)
         return out;
 }
 
+
+PyObject * get_app_users(model *model)
+{
+        int pdx;
+        struct individual *indiv;
+        PyObject *out;
+        out = PyList_New(model->params->n_total);
+        for (pdx = 0; pdx < model->params->n_total; pdx++) {
+                indiv = &(model->population[pdx]);
+                PyList_SetItem(out, pdx, PyInt_FromLong(indiv->app_user));
+        }
+        return out;
+}
+
+PyObject * get_age(model *model)
+{
+        int pdx;
+        struct individual *indiv;
+        PyObject *out;
+        out = PyList_New(model->params->n_total);
+        for (pdx = 0; pdx < model->params->n_total; pdx++) {
+                indiv = &(model->population[pdx]);
+                PyList_SetItem(out, pdx, PyInt_FromLong(indiv->age_group));
+        }
+        return out;
+}
+
+
 PyObject * get_contacts(model * model)
 {
         int day, pdx, idx; // k, ktot;
