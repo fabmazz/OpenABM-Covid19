@@ -1627,7 +1627,8 @@ void add_household_to_ref_households(parameters *params, int idx, int i_0_9, int
 ******************************************************************************************/
 void get_param_array_mean_random_interactions(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_TYPES; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_TYPES; idx++) {
         value[idx] = params->mean_random_interactions[idx];
     }
 }
@@ -1638,7 +1639,8 @@ void get_param_array_mean_random_interactions(parameters *params, double *value)
 ******************************************************************************************/
 void get_param_array_sd_random_interactions(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_TYPES; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_TYPES; idx++) {
         value[idx] = params->sd_random_interactions[idx];
     }
 }
@@ -1649,18 +1651,21 @@ void get_param_array_sd_random_interactions(parameters *params, double *value)
 ******************************************************************************************/
 void get_param_array_mean_work_interactions(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_OCCUPATION_NETWORKS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_OCCUPATION_NETWORKS; idx++) {
         value[idx] = params->mean_work_interactions[idx];
     }
 }
 
 /*****************************************************************************************
+
 *  Name:        get_param_array_relative_susceptibility
 *  Description: Gets the value of an array
 ******************************************************************************************/
 void get_param_array_relative_susceptibility(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         value[idx] = params->relative_susceptibility[idx];
     }
 }
@@ -1671,7 +1676,8 @@ void get_param_array_relative_susceptibility(parameters *params, double *value)
 ******************************************************************************************/
 void get_param_array_adjusted_susceptibility(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         value[idx] = params->adjusted_susceptibility[idx];
     }
 }
@@ -1682,7 +1688,8 @@ void get_param_array_adjusted_susceptibility(parameters *params, double *value)
 ******************************************************************************************/
 void get_param_array_relative_transmission(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_INTERACTION_TYPES; idx++) {
+    int idx;
+    for (idx = 0; idx < N_INTERACTION_TYPES; idx++) {
         value[idx] = params->relative_transmission[idx];
     }
 }
@@ -1693,7 +1700,8 @@ void get_param_array_relative_transmission(parameters *params, double *value)
 ******************************************************************************************/
 void get_param_array_relative_transmission_used(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_INTERACTION_TYPES; idx++) {
+    int idx;
+    for (idx = 0; idx < N_INTERACTION_TYPES; idx++) {
         value[idx] = params->relative_transmission_used[idx];
     }
 }
@@ -1704,7 +1712,8 @@ void get_param_array_relative_transmission_used(parameters *params, double *valu
 ******************************************************************************************/
 void get_param_array_hospitalised_fraction(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         value[idx] = params->hospitalised_fraction[idx];
     }
 }
@@ -1715,7 +1724,8 @@ void get_param_array_hospitalised_fraction(parameters *params, double *value)
 ******************************************************************************************/
 void get_param_array_critical_fraction(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         value[idx] = params->critical_fraction[idx];
     }
 }
@@ -1726,7 +1736,8 @@ void get_param_array_critical_fraction(parameters *params, double *value)
 ******************************************************************************************/
 void get_param_array_fatality_fraction(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         value[idx] = params->fatality_fraction[idx];
     }
 }
@@ -1737,7 +1748,8 @@ void get_param_array_fatality_fraction(parameters *params, double *value)
 ******************************************************************************************/
 void get_param_array_household_size(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_HOUSEHOLD_MAX; idx++) {
+    int idx;
+    for (idx = 0; idx < N_HOUSEHOLD_MAX; idx++) {
         value[idx] = params->household_size[idx];
     }
 }
@@ -1748,7 +1760,8 @@ void get_param_array_household_size(parameters *params, double *value)
 ******************************************************************************************/
 void get_param_array_population(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         value[idx] = params->population[idx];
     }
 }
@@ -1759,7 +1772,8 @@ void get_param_array_population(parameters *params, double *value)
 ******************************************************************************************/
 void get_param_array_fraction_asymptomatic(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         value[idx] = params->fraction_asymptomatic[idx];
     }
 }
@@ -1770,7 +1784,8 @@ void get_param_array_fraction_asymptomatic(parameters *params, double *value)
 ******************************************************************************************/
 void get_param_array_mild_fraction(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         value[idx] = params->mild_fraction[idx];
     }
 }
@@ -1781,7 +1796,8 @@ void get_param_array_mild_fraction(parameters *params, double *value)
 ******************************************************************************************/
 void get_param_array_location_death_icu(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         value[idx] = params->location_death_icu[idx];
     }
 }
@@ -1792,7 +1808,8 @@ void get_param_array_location_death_icu(parameters *params, double *value)
 ******************************************************************************************/
 void get_param_array_app_users_fraction(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         value[idx] = params->app_users_fraction[idx];
     }
 }
@@ -1804,7 +1821,8 @@ void get_param_array_app_users_fraction(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_mean_random_interactions(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_TYPES; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_TYPES; idx++) {
         params->mean_random_interactions[idx] = value[idx];
     }
 }
@@ -1815,7 +1833,8 @@ void set_param_array_mean_random_interactions(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_sd_random_interactions(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_TYPES; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_TYPES; idx++) {
         params->sd_random_interactions[idx] = value[idx];
     }
 }
@@ -1826,7 +1845,8 @@ void set_param_array_sd_random_interactions(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_mean_work_interactions(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_OCCUPATION_NETWORKS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_OCCUPATION_NETWORKS; idx++) {
         params->mean_work_interactions[idx] = value[idx];
     }
 }
@@ -1837,7 +1857,8 @@ void set_param_array_mean_work_interactions(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_relative_susceptibility(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         params->relative_susceptibility[idx] = value[idx];
     }
 }
@@ -1848,7 +1869,8 @@ void set_param_array_relative_susceptibility(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_adjusted_susceptibility(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         params->adjusted_susceptibility[idx] = value[idx];
     }
 }
@@ -1859,7 +1881,8 @@ void set_param_array_adjusted_susceptibility(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_relative_transmission(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_INTERACTION_TYPES; idx++) {
+    int idx;
+    for (idx = 0; idx < N_INTERACTION_TYPES; idx++) {
         params->relative_transmission[idx] = value[idx];
     }
 }
@@ -1870,7 +1893,8 @@ void set_param_array_relative_transmission(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_relative_transmission_used(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_INTERACTION_TYPES; idx++) {
+    int idx;
+    for (idx = 0; idx < N_INTERACTION_TYPES; idx++) {
         params->relative_transmission_used[idx] = value[idx];
     }
 }
@@ -1881,7 +1905,8 @@ void set_param_array_relative_transmission_used(parameters *params, double *valu
 ******************************************************************************************/
 void set_param_array_hospitalised_fraction(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         params->hospitalised_fraction[idx] = value[idx];
     }
 }
@@ -1892,7 +1917,8 @@ void set_param_array_hospitalised_fraction(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_critical_fraction(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         params->critical_fraction[idx] = value[idx];
     }
 }
@@ -1903,7 +1929,8 @@ void set_param_array_critical_fraction(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_fatality_fraction(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         params->fatality_fraction[idx] = value[idx];
     }
 }
@@ -1914,7 +1941,8 @@ void set_param_array_fatality_fraction(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_household_size(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_HOUSEHOLD_MAX; idx++) {
+    int idx;
+    for (idx = 0; idx < N_HOUSEHOLD_MAX; idx++) {
         params->household_size[idx] = value[idx];
     }
 }
@@ -1925,7 +1953,8 @@ void set_param_array_household_size(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_population(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         params->population[idx] = value[idx];
     }
 }
@@ -1936,7 +1965,8 @@ void set_param_array_population(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_fraction_asymptomatic(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         params->fraction_asymptomatic[idx] = value[idx];
     }
 }
@@ -1947,7 +1977,8 @@ void set_param_array_fraction_asymptomatic(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_mild_fraction(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         params->mild_fraction[idx] = value[idx];
     }
 }
@@ -1958,7 +1989,8 @@ void set_param_array_mild_fraction(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_app_users_fraction(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         params->app_users_fraction[idx] = value[idx];
     }
 }
@@ -1969,7 +2001,8 @@ void set_param_array_app_users_fraction(parameters *params, double *value)
 ******************************************************************************************/
 void set_param_array_location_death_icu(parameters *params, double *value)
 {
-    for (int idx = 0; idx < N_AGE_GROUPS; idx++) {
+    int idx;
+    for (idx = 0; idx < N_AGE_GROUPS; idx++) {
         params->location_death_icu[idx] = value[idx];
     }
 }
