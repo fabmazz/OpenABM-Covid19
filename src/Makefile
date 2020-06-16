@@ -27,7 +27,7 @@ INC = /usr/local/include
 LIB = /usr/local/lib
 
 # Compilation options and libraries to be used
-CFLAGS = -g -Wall -fmessage-length=0 -I$(INC) -O0
+CFLAGS = -std=gnu99 -g -Wall -fmessage-length=0 -I$(INC) -O0
 
 # Swig's output
 SWIG_OUTPUT = covid19_wrap.o covid19_wrap.c covid19.py _covid19.cpython-37m-darwin.so build covid19.egg-info
@@ -36,7 +36,7 @@ SWIG_OUTPUT = covid19_wrap.o covid19_wrap.c covid19.py _covid19.cpython-37m-darw
 install: $(OBJS)
 install: all;
 	swig -python covid19.i
-	$(PYTHON) -m pip install $(PIP_FLAGS) .
+	CFLAGS="${CFLAGS}" $(PYTHON) -m pip install $(PIP_FLAGS) .
 
 dev: PIP_FLAGS += -e
 dev: install;
