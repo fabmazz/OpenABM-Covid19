@@ -744,7 +744,9 @@ int one_time_step( model *model )
 	for( idx = 0; idx < N_EVENT_TYPES; idx++ )
 		update_event_list_counters( model, idx );
 
+	build_daily_newtork( model );
 	// ALE: DEBUG
+	/*
 	char all_interactions_file_name[INPUT_CHAR_LEN];
 	strcpy(all_interactions_file_name, model->params->output_file_dir);
 	strcat(all_interactions_file_name, "/all_interactions.csv");
@@ -753,8 +755,6 @@ int one_time_step( model *model )
 	//printf("%d\n", model->interaction_day_idx);
 	//printf("%d\n", model->params->days_of_interactions);
 
-	build_daily_newtork( model );
-	
 	fclose(all_interactions_file);
 
 	char lambda_house_file_name[INPUT_CHAR_LEN];
@@ -774,7 +774,7 @@ int one_time_step( model *model )
 	strcat(lambda_random_file_name, "/lambda_random.txt");
 	lambda_random_file = fopen(lambda_random_file_name, "a");
 	//print_lambda(model, RANDOM, lambda_random_file);
-
+	*/
 	/*if (model->time == 10)
 	        intervention_quarantine_until(model, model->population, 100, TRUE, NULL, 0);*/
 
