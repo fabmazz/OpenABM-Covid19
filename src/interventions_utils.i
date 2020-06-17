@@ -8,16 +8,20 @@
 int intervention_quarantine_list(model *model, PyObject * to_quarantine, int time_to)
 {
         int n, i;
+        int ret;
         long idx;
         PyObject * o;
         n = PyList_Size(to_quarantine);
         for (i = 0; i < n; i++) {
                 o = PyList_GetItem(to_quarantine, i);
                 idx = PyInt_AsLong(o);
-                if (idx >= 0 && idx < model->params->n_total)
-                        intervention_quarantine_until(model, model->population + idx, time_to, TRUE, NULL, 0);
-                else {
-                        PySys_WriteStdout("ERROR: %li out of range!", idx);
+                if (idx >= 0 && idx < model->params->n_total) {
+                        ret = intervention_quarantine_until(model, model->population + idx, time_to, TRUE, NULL, 0);
+                        if (!ret) {
+                                PySys_WriteStdout("intervention_quarantine_until returns false!");
+                        }
+                } else {
+                        PySys_WriteStdout("ERROR: %li out of range (>= %li)!", idx, model->params->n_total);
                         return 1;
                 }
         }
