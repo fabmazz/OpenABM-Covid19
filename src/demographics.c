@@ -20,7 +20,8 @@
 #define INTIAL_ACCEPTANCE_FACTOR 0.00001
 #define SAMPLE_BATCH 4
 #define POPULATION_PREF 2
-#define MAX_ALLOWABLE_ERROR 1e-5
+// #define MAX_ALLOWABLE_ERROR 1e-5
+#define MAX_ALLOWABLE_ERROR 1e-4
 
 /*****************************************************************************************
 *  Name:		assign_household_distribution

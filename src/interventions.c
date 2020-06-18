@@ -360,7 +360,7 @@ int intervention_quarantine_until(
 {
 	if( is_in_hospital( indiv ) )
 		return FALSE;
-
+/*
 	if( indiv->traced_on_this_trace >= 1 || risk_score == 0 )
 		return FALSE;
 
@@ -388,7 +388,7 @@ int intervention_quarantine_until(
 
 	if( indiv->traced_on_this_trace < 1 )
 		return FALSE;
-
+*/
 	if( time <= model->time )
 		return FALSE;
 
