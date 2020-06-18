@@ -108,6 +108,7 @@ PyObject * get_contacts(model * model)
 
 PyObject * get_contacts_daily(model * model, int day)
 {
+        int day_abm = day % model->params->days_of_interactions;
         int pdx, idx; // k, ktot;
         struct individual *indiv;
 	struct interaction *inter;
@@ -119,9 +120,9 @@ PyObject * get_contacts_daily(model * model, int day)
         }
         for (pdx = 0; pdx < model->params->n_total; pdx++) {
                 indiv = &(model->population[pdx]);
-                if (indiv->n_interactions[day] > 0) {
-                        inter = indiv->interactions[day];
-                        for( idx = 0; idx < indiv->n_interactions[day]; idx++) {
+                if (indiv->n_interactions[day_abm] > 0) {
+                        inter = indiv->interactions[day_abm];
+                        for( idx = 0; idx < indiv->n_interactions[day_abm]; idx++) {
                                 it = PyList_New(4);
                                 PyList_SetItem(it, 0, PyInt_FromLong(indiv->idx));
                                 PyList_SetItem(it, 1, PyInt_FromLong(inter->individual->idx));
@@ -135,6 +136,7 @@ PyObject * get_contacts_daily(model * model, int day)
 
         return out;
 }
+
 
 %}
 
