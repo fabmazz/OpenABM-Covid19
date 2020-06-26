@@ -1,5 +1,7 @@
-OpenABM-Covid19: Agent-based model for modelling the Covid-19 
+OpenABM-Covid19: Agent-based model for modelling the Covid-19 + Intervention API
 ========================================================================
+
+This fork containts a minimal [Intervention API](#intervention-api) that allows interaction with the original C++ code via the python interface. Risk assessment and tracing techniques can be easily integrated with the agent-based model in order to test containment strategies for epidemic spreading.
 
 Description
 -----------
@@ -85,4 +87,45 @@ Tests
 -----
 
 A full description of the tests run on the model can be found [here](https://github.com/BDI-pathogens/OpenABM-Covid19/blob/master/documentation/covid19_tests.pdf).
-Tests are written using [pytest](https://docs.pytest.org/en/latest/getting-started.html) and can be run from the main project directory by calling `pytest`.  Tests require Python 3.6 or later.  Individual tests can be run using, for instance, `pytest tests/test_ibm.py::TestClass::test_hospitalised_zero`.  Tests have been run against modules listed in [tests/requirements.txt](tests/requirements) in case they are to be run within a virtual environment.  
+Tests are written using [pytest](https://docs.pytest.org/en/latest/getting-started.html) and can be run from the main project directory by calling `pytest`.  Tests require Python 3.6 or later.  Individual tests can be run using, for instance, `pytest tests/test_ibm.py::TestClass::test_hospitalised_zero`.  Tests have been run against modules listed in [tests/requirements.txt](tests/requirements) in case they are to be run within a virtual environment.
+
+# Intervention API
+
+The following procedures are available:
+
+* `get_contacts_daily(model * model, int day)`: returns the full list of contacts for a given day
+* `intervention_quarantine_list(model *model, PyObject * to_quarantine, int time_to)`: quarantines a list of individuals for `time_to` days
+* `get_age(model *model)`: returns the list of ages for all individuals in the network
+* `get_app_users(model *model)`: returns the list of ages for all individuals in the network
+* `PyObject * get_house(model *model)`: returns the list of ages for all individuals in the network
+* `PyObject * get_state(model *model)`: returns the present state of all individuals
+
+**Usage**
+
+Once a `model` object is instantiated, a typical run in the presence of external intervention would consists of the following steps:
+
+```python
+    
+    import covid19
+    
+    # retrieve demographics
+    house = covid19.get_house(model.model.c_model)
+    ages = covid19.get_house(model.model.c_model)
+    
+    # store list of individuals using the tracing app
+    has_app = covid19.get_app_users(model.model.c_model)
+
+    for t in range(end_time):
+        # update model state
+        sim.steps(1)
+        # get status of nodes in the networks
+        status = np.array(covid19.get_state(model.model.c_model))
+        # get daily contacts
+        daily_contacts = covid19.get_contacts_daily(model.model.c_model, t)
+        
+        # use your favourite method to perform risk assessment
+        to_quarantine = ...
+        
+        # quarantine a list of individuals for days_of_quarantine days
+        covid19.intervention_quarantine_list(model.model.c_model, to_quarantine, days_of_quarantine)
+```
