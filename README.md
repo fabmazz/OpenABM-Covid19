@@ -96,9 +96,9 @@ The following procedures are available:
 * `get_contacts_daily(model * model, int day)`: returns the full list of contacts for a given day
 * `intervention_quarantine_list(model *model, PyObject * to_quarantine, int time_to)`: quarantines a list of individuals for `time_to` days
 * `get_age(model *model)`: returns the list of ages for all individuals in the network
-* `get_app_users(model *model)`: returns the list of ages for all individuals in the network
-* `PyObject * get_house(model *model)`: returns the list of ages for all individuals in the network
-* `PyObject * get_state(model *model)`: returns the present state of all individuals
+* `get_app_users(model *model)`: returns a list of boolean values indicating app adoption for all individuals
+* `PyObject * get_house(model *model)`: returns the househould ID for all individuals
+* `PyObject * get_state(model *model)`: returns the current state of all individuals
 
 ### Usage
 
