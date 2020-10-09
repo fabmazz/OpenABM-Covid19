@@ -16,6 +16,9 @@ __pycache__
 **/*.egg-info
 *.pkl
 
+# Python notebooks
+.ipynb_checkpoints/
+
 # Eclipse-related files
 .project
 .cproject
