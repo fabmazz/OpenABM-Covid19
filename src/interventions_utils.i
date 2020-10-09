@@ -1,27 +1,36 @@
 #include "interventions.h"
-#include "individuals.h"
+#include "individual.h"
 
 
 
 %inline %{
 
-int intervention_quarantine_list(model *model, PyObject * to_quarantine, int time_to)
+PyObject * intervention_quarantine_list(model *model, PyObject * to_quarantine, int time_to)
 {
-        int n, i;
+        int n, i, i_res;
         long idx;
         PyObject * o;
+        PyObject * res_list;
         n = PyList_Size(to_quarantine);
+        res_list = PyList_New(n);
         for (i = 0; i < n; i++) {
                 o = PyList_GetItem(to_quarantine, i);
                 idx = PyInt_AsLong(o);
-                if (idx >= 0 && idx < model->params->n_total)
-                        intervention_quarantine_until(model, model->population + idx, time_to, TRUE, NULL, 0);
+                if (idx >= 0 && idx < model->params->n_total){
+                        i_res = intervention_quarantine_until(model,
+                                                              model->population + idx,
+                                                              NULL,
+                                                              time_to,
+                                                              TRUE, NULL, 0, 1.);
+                        PyList_SetItem(res_list, i, PyInt_FromLong((long) i_res));
+                }
                 else {
                         PySys_WriteStdout("ERROR: %li out of range!", idx);
+                        PyList_SetItem(res_list, i, PyInt_FromLong((long) 0));
                         return 1;
                 }
         }
-        return 0;
+        return res_list;
 }
 
 PyObject * get_state(model *model)
