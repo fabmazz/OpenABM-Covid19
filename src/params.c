@@ -1337,7 +1337,7 @@ void check_params( parameters *params )
 	int idx;
 
 	if( params->days_of_interactions > MAX_DAILY_INTERACTIONS_KEPT )
-    	print_exit( "BAD PARAM day_of_interaction - can't be greater than MAX_DAILY_INTERACTIONS " );
+    	print_exit( "BAD PARAM days_of_interactions - can't be greater than MAX_DAILY_INTERACTIONS " );
 
     if( params->end_time > MAX_TIME )
      	print_exit( "BAD PARAM end_time - can't be greater than MAX_TIME " );
